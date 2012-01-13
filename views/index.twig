@@ -78,13 +78,27 @@
                 {{ dep_name }}. We're going to call our development deployment 
                 dev. So we create a branch called dev.
             </p>
-<pre class="prettyprint lang-bash">$ git branch dev
-# checkout the dev branch
-$ git checkout dev
-# now change the &lt;title&gt; in views/index.twig file to
+<pre class="prettyprint lang-bash">$ git branch dev</pre>
+            <p>
+                Next, switch to the dev branch. You don't want to make your 
+                changes in master.
+            </p>
+<pre class="prettyprint lang-bash">$ git checkout dev
+Switched to branch 'dev'
+</pre>
+            <p>
+                Feturewise we change the &lt;title&gt; tag in views/index.twig. 
+                Awesome feature, I know.
+            </p>
+<pre class="prettyprint lang-bash">
 &lt;title&gt;Development Deployment&lt;/title&gt;
-# and commit the change
-$ git commit -am "changed views/index.twig"
+</pre>
+            <p>
+                Finally, commit the change.
+            </p>
+<pre class="prettyprint lang-bash">$ git commit -am "changed title"
+[dev 11ada20] changed views/index.twig
+ 1 files changed, 1 insertions(+), 1 deletions(-)
 </pre>
             <h3>Push the new branch</h3>
             <p>Before we can deploy the changes we need to push them first.</p>
