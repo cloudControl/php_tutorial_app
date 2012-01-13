@@ -102,7 +102,11 @@ Switched to branch 'dev'
 </pre>
             <h3>Push the new branch</h3>
             <p>Before we can deploy the changes we need to push them first.</p>
-<pre class="prettyprint lang-bash">$ git push cctrl dev</pre>
+<pre class="prettyprint lang-bash">$ git push cctrl dev
+Total 0 (delta 0), reused 0 (delta 0)
+To ssh://pstfinaltest@cloudcontrolled.com/repository.git
+ * [new branch]      dev -> dev
+</pre>
             <h3>Deploy {{ dep_name|replace({'default': 'dev'}) }}</h3>
             <p>
                 To deploy the deployment use the following command. Please note 
@@ -129,7 +133,19 @@ Switched to branch 'dev'
             <p>
                 Btw, listing your app's deployments is as easy as:
             </p>
-<pre class="prettyprint lang-bash">$ cctrlapp {{ dep_name|replace({'/default': ''}) }} details</pre>
+<pre class="prettyprint lang-bash">$ cctrlapp {{ dep_name|replace({'/default': ''}) }} details
+App
+ Name: cctrlapp {{ dep_name|replace({'/default': ''}) }}                   Type: php        Owner:         
+ Repository: ssh://cctrlapp {{ dep_name|replace({'/default': ''}) }}@cloudcontrolled.com/repository.git
+
+ Users
+   Name                                     Email               
+   XXX                                      XXX
+
+ Deployments
+   {{ dep_name }}                                       
+   {{ dep_name|replace({'default': 'dev'}) }}
+</pre>
             <h3>Check out {{ dep_name|replace({'default': 'dev'}) }}</h3>
             <p>
                 If everything worked you can now find your dev deployment with 
