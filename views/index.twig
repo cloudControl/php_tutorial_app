@@ -136,7 +136,7 @@ To ssh://pstfinaltest@cloudcontrolled.com/repository.git
 <pre class="prettyprint lang-bash">$ cctrlapp {{ dep_name|replace({'/default': ''}) }} details
 App
  Name: cctrlapp {{ dep_name|replace({'/default': ''}) }}                   Type: php        Owner:         
- Repository: ssh://cctrlapp {{ dep_name|replace({'/default': ''}) }}@cloudcontrolled.com/repository.git
+ Repository: ssh://{{ dep_name|replace({'/default': ''}) }}@cloudcontrolled.com/repository.git
 
  Users
    Name                                     Email               
