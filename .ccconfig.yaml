@@ -1,0 +1,3 @@
+BaseConfig:
+  WebContent: /app
+  AdminEmail: support@cloudcontrol.de

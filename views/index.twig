@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta charset="UTF-8">
+        <meta name="language" content="en" >
+        <title>cloudControl PaaS Tutorial App</title>
+        <link href="http://www2.cloudcontrolled.com/static/css/bootstrap-1.4.0.min.css" media="screen" rel="stylesheet" type="text/css">
+        <link href="http://www2.cloudcontrolled.com/static/css/style.css" media="screen" rel="stylesheet" type="text/css">
+        <!--[if lt IE 9]> <script type="text/javascript" src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    </head>
+	<body class="index-controller">
+		<header id="top">
+			<div class="content-wrapper clearfix">
+				<div class="cctrl-logo"><a href="/">Home</a></div>
+			</div>
+		</header>
+		
+		<section class="tutorial clearfix" id="scene">
+			<div class="wrapper">
+				<div class="introtext">
+					<span class="introbracket">(</span>
+					<span class="introtop">
+					    {% if success %}
+					        Wroooaaaammmmm!
+					    {% else %}
+					        Oooooooooops...
+					    {% endif %}
+					</span>
+					<span class="introbracket">)</span>
+					<br>
+					<span class="introbottom">
+					    {% if success %}
+					        now you're supercharged
+					    {% else %}
+					        something went wrong
+					    {% endif %}
+					</span>
+				</div>
+			</div>     
+		</section>
+		<section id="content" class="tutorial">
+		    <div class="static-wrapper">
+	        {% if success and default %}
+	        <h2>Congratulations, awesome job</h2>
+			<p>
+				You have successfully deployed your first app and connected 
+				to the database. It's a small step for mankind, but a big 
+				step for us. Or was it the other way around?
+            </p>
+            <p>
+                Anyways, let's go ahead and get some real work done, 
+                shall we? cloudControl isn't just a quick and easy way to 
+                deploy apps. It's a complete Cloud environment for development 
+                and production. We currently have a single deployment of our 
+                app. Imagine you're having this awesome new feature planned. 
+                With a separate deployment it's easy to have this running in 
+                the Cloud without interfering with the existing live deployment.
+            </p>
+            <p>
+                To create a new deployment we first need to install cctrlapp.
+            </p>
+            <h3>Install the cctrl command line client</h3>
+            <p>
+                The command line client for Mac and Linux can easily be 
+                installed using pip. For Windows there is the 
+                <a href="https://launchpad.net/cctrl/+download">Windows installer</a>.
+            </p>
+<pre class="prettyprint lang-bash">$ sudo pip install cctrl</pre>
+            <p>
+                If you don't have pip installed, you could also use 
+                easy_install. But trust me, you want to install pip.
+            </p>
+
+            <h3>Create a new branch</h3>
+            <p>
+                Each deployment has to have a matching branch name in the 
+                version control system. Currently we have one deployment called 
+                {{ dep_name }}. We're going to call our development deployment 
+                dev. So we create a branch called dev.
+            </p>
+<pre class="prettyprint lang-bash">$ git branch dev
+# checkout the dev branch
+$ git checkout dev
+# now change the &lt;title&gt; in views/index.twig file to
+&lt;title&gt;Development Deployment&lt;/title&gt;
+# and commit the change
+$ git commit -am "changed views/index.twig"
+</pre>
+            <h3>Push the new branch</h3>
+            <p>Before we can deploy the changes we need to push them first.</p>
+<pre class="prettyprint lang-bash">$ git push cctrl dev</pre>
+            <h3>Deploy {{ dep_name|replace({'default': 'dev'}) }}</h3>
+            <p>
+                To deploy the deployment use the following command. Please note 
+                how {{ dep_name }} and {{ dep_name|replace({'default': 'dev'}) }} 
+                are used to specify the different deployments of your app.
+            </p>
+
+<pre class="prettyprint lang-bash">$ cctrlapp {{ dep_name|replace({'default': 'dev'}) }} deploy</pre>
+
+            <h3>Add the MySQL Add-on</h3>
+            <p>
+                All Add-ons are per deployment. This way your live and dev 
+                version get separate databases. I don't have to tell you how 
+                important this separation is to avoid fat fingering of live 
+                data, do I?
+            </p>
+            <p>
+                Since our app needs MySQL this means we need to add another 
+                MySQL Add-on to the dev deployment.
+            </p>
+<pre class="prettyprint lang-bash">$ cctrlapp {{ dep_name|replace({'default': 'dev'}) }} addon.add mysql.free</pre>
+
+            <hr>
+            <p>
+                Btw, listing your app's deployments is as easy as:
+            </p>
+<pre class="prettyprint lang-bash">$ cctrlapp {{ dep_name|replace({'/default': ''}) }} details</pre>
+            <h3>Check out {{ dep_name|replace({'default': 'dev'}) }}</h3>
+            <p>
+                If everything worked you can now find your dev deployment with 
+                the changed &lt;title&gt; here: 
+                <a href="http://dev.{{ dep_name|replace({'/default': ''}) }}.cloudcontrolled.com">http://dev.{{ dep_name|replace({'/default': ''}) }}.cloudcontrolled.com</a>
+            </p>
+            {% elseif success and not default %}
+                <h2>Perfect, this is {{ dep_name }}</h2>
+                <p>
+                    Let's recap. We've learned how to add Add-ons and add 
+                    branches and deployments. Here's how to create another app 
+                    for your "next big thing"&trade;. What are you waiting for? 
+                    Get coding!
+                </p>
+<pre class="prettyprint lang-bash">$ cctrlapp YOUR_APP_NAME_HERE create php</pre>
+            {% else %}
+				<h2>Sorry, something didn't quite work</h2>
+                <p>
+                    Somehow we were not able to connect to the database. Please 
+                    doublecheck the code. If that still doesn't work, 
+                    <a href="mailto:support@cloudcontrol.de">support</a> is 
+                    there to help you.
+                </p>
+            {% endif %}
+            </div>
+		</section>
+        <section id="blueband">
+	        <div class="border-bottom">
+				<h2 class="bordered-title">Cloud Tutorial App</h2>
+				<p>powered by cloudControl</p>
+	        </div>
+	        <div class="border-top">
+	            To learn more, check out the 
+	            <a href="http://cloudcontrol.com/documentation">documentation</a>.
+	        </div>
+        </section>
+        <footer class="tutorial">
+            <!-- EASTEREGG ;) -->
+        </footer>
+        <!-- Google analytics -->
+        <script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-25588617-2']);
+            _gaq.push(['_gat._anonymizeIp']);
+            _gaq.push(['_setAllowLinker', true]);
+            _gaq.push(['_trackPageview']);
+
+            (function() {
+              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
+        <!-- End Google analytics -->
+        <script type="text/javascript" src="http://www2.cloudcontrolled.com/static/js/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="http://www2.cloudcontrolled.com/static/js/prettify/prettify.js"></script>
+        <script type="text/javascript" src="http://www2.cloudcontrolled.com/static/js/frontend.min.js"></script>
+	</body>
+</html>
