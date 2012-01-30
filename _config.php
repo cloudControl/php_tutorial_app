@@ -22,10 +22,10 @@ $creds = json_decode($string, true);
 
 # use credentials to set the configuration for MySQL
 $config = array(
-    'MYSQL_HOSTNAME' => $creds['MYSQL']['MYSQL_HOSTNAME'],
-    'MYSQL_DATABASE' => $creds['MYSQL']['MYSQL_DATABASE'],
-    'MYSQL_USERNAME' => $creds['MYSQL']['MYSQL_USERNAME'],
-    'MYSQL_PASSWORD' => $creds['MYSQL']['MYSQL_PASSWORD']
+    'MYSQL_HOSTNAME' => $creds['MYSQLS']['MYSQLS_HOSTNAME'],
+    'MYSQL_DATABASE' => $creds['MYSQLS']['MYSQLS_DATABASE'],
+    'MYSQL_USERNAME' => $creds['MYSQLS']['MYSQLS_USERNAME'],
+    'MYSQL_PASSWORD' => $creds['MYSQLS']['MYSQLS_PASSWORD']
 );
 
 ?>
