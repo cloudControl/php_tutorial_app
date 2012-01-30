@@ -116,7 +116,7 @@ To ssh://pstfinaltest@cloudcontrolled.com/repository.git
 
 <pre class="prettyprint lang-bash">$ cctrlapp {{ dep_name|replace({'default': 'dev'}) }} deploy</pre>
 
-            <h3>Add the MySQL Add-on</h3>
+            <h3>Add the MySQL (shared) Add-on</h3>
             <p>
                 All Add-ons are per deployment. This way your live and dev 
                 version get separate databases. I don't have to tell you how 
@@ -127,7 +127,7 @@ To ssh://pstfinaltest@cloudcontrolled.com/repository.git
                 Since our app needs MySQL this means we need to add another 
                 MySQL Add-on to the dev deployment.
             </p>
-<pre class="prettyprint lang-bash">$ cctrlapp {{ dep_name|replace({'default': 'dev'}) }} addon.add mysql.free</pre>
+<pre class="prettyprint lang-bash">$ cctrlapp {{ dep_name|replace({'default': 'dev'}) }} addon.add mysqls.free</pre>
 
             <hr>
             <p>
